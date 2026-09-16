@@ -1,5 +1,7 @@
 # Core principles of XY motion
 
+**[Play with the interactive explainer →](https://srinathava.github.io/corexy/)**
+
 An interactive CoreXY explainer built with plain HTML, CSS, SVG, and JavaScript. Start with an ordinary belt drive, unlock one degree of freedom, and discover how two belt-length constraints become two diagonal coordinates.
 
 The page is a standalone file that works offline. No framework, build step, or runtime dependencies are required.
@@ -93,4 +95,14 @@ CHROME_PATH=/path/to/chromium npm test
 
 The checks cover all seven experiments, settled belt lengths, tracer attachment, motor constraints, linked sliders and travel limits, projected dragging, playback, reset, mobile overflow, and reduced motion. Screenshots are saved as `corexy-*.png` in the operating system's temporary directory.
 
-There is no build output to publish: `index.html` can be served directly by any static host.
+## Publishing with GitHub Pages
+
+The browser version is served at **https://srinathava.github.io/corexy/**. GitHub Pages serves `index.html` directly from the root of the `gh-pages` branch; `.nojekyll` keeps the files unchanged.
+
+After committing and pushing an update to `main`, publish that version with:
+
+```sh
+git push origin main:gh-pages
+```
+
+Repository settings → Pages should use **Deploy from a branch**, **gh-pages**, **/ (root)**. Publishing may take a few minutes. There is no build step, and the standalone HTML can also be served by any other static host.
