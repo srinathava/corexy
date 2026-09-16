@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101618">
+<title>Core principles of XY motion — a CoreXY laboratory</title>
+<style>
+:root{color-scheme:dark;--bg:#101618;--panel:#171f22;--line:#303b3e;--text:#eef2e9;--muted:#a3b0ae;--a:#d3ed8b;--b:#7dcad9;--purple:#bdabed}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input{font:inherit}button{cursor:pointer}button:disabled{cursor:default;opacity:.35}button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--a);outline-offset:5px}button{color:var(--text);border:1px solid var(--line);background:transparent;border-radius:7px;padding:9px 16px;transition:background .15s}button:hover:enabled{background:#283437}.page{max-width:1320px;margin:auto;padding:30px 48px 26px}.masthead{display:flex;align-items:center;justify-content:space-between;padding-bottom:22px;border-bottom:1px solid var(--line);gap:16px}.brand{font-weight:650;letter-spacing:-.4px;display:flex;align-items:center;gap:12px}.brand svg{width:25px;height:25px}.eyebrow,.micro{font:11px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:1.8px;text-transform:uppercase}.muted{color:var(--muted)}.masthead .micro{color:var(--muted)}.intro{display:flex;justify-content:space-between;align-items:end;padding:32px 0 27px;gap:30px}h1{font-size:clamp(30px,4vw,47px);line-height:1.12;letter-spacing:-1.9px;margin:0;font-weight:500}.intro p{max-width:365px;color:var(--muted);margin:0;font-size:14px}.lab{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel)}.lesson{display:grid;grid-template-columns:1fr 330px;min-height:157px;border-bottom:1px solid var(--line)}.lesson-copy{padding:24px 30px}.eyebrow{color:var(--a)}h2{font-size:25px;line-height:1.25;letter-spacing:-.7px;font-weight:500;margin:8px 0 9px}.lesson p{color:var(--muted);font-size:14px;max-width:700px;margin:0}.try{border-left:1px solid var(--line);margin:24px 0;padding:3px 26px;display:flex;flex-direction:column;justify-content:center}.try .micro{color:var(--a);margin-bottom:9px}.try p{color:var(--text)}.scene-wrap{position:relative;background:#121a1d}.scene-meta{position:absolute;left:26px;right:26px;top:18px;display:flex;justify-content:space-between;gap:10px;pointer-events:none;z-index:1}.scene-meta span{font:10px ui-monospace,SFMono-Regular,monospace;letter-spacing:1.2px;color:var(--muted)}.scene-meta .live{color:var(--a)}.live:before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--a);margin-right:8px;vertical-align:2px}#mechanism{display:block;width:100%;max-height:550px;min-height:260px;aspect-ratio:960/600;user-select:none;touch-action:pan-y}.svg-label{fill:var(--muted);font:12px ui-monospace,SFMono-Regular,monospace;letter-spacing:.2px}.svg-small{fill:var(--muted);font:10px ui-monospace,SFMono-Regular,monospace}.svg-title{fill:var(--text);font:12px system-ui,sans-serif}.belt{fill:none;stroke:var(--a);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.belt-b{stroke:var(--b)}.pulley-body{fill:#1b2529;stroke:#758785;stroke-width:1.6}.motor-body{fill:#273326;stroke:var(--a);stroke-width:2}.spoke{stroke:#91a3a0;stroke-width:1.8}.motor-spoke{stroke:var(--a)}.bearing{fill:#131b1e;stroke:#718581;stroke-width:1.5}.anchor{stroke:#566462;fill:none;stroke-width:1.3}.tracer{fill:#142019;stroke:var(--a);stroke-width:2}.guide{stroke:var(--a);stroke-width:2;stroke-dasharray:7 7}.guide-b{stroke:var(--b)}.ghost-guide{stroke:var(--a);opacity:.15;stroke-width:1;stroke-dasharray:4 8}.draggable{cursor:grab;touch-action:none}.draggable:active{cursor:grabbing}.legend{display:flex;justify-content:center;gap:24px;padding:0 15px 17px;color:var(--muted);font:11px ui-monospace,SFMono-Regular,monospace}.legend span{display:flex;align-items:center;gap:8px}.swatch{width:17px;height:3px;background:var(--a)}.swatch.b{background:var(--b)}.swatch.c{background:var(--purple)}.observation{padding:16px 26px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:25px;background:#1c2627;font-size:13px}.observation p{margin:0;max-width:720px}.equation{color:var(--a);font:14px ui-monospace,SFMono-Regular,monospace;white-space:nowrap}.controls{padding:23px 26px;display:flex;gap:30px;align-items:center}.sliders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));flex:1;gap:30px}.control label{display:flex;align-items:center;justify-content:space-between;font-size:12px;font-weight:550;gap:8px}.control output{color:var(--a);font:12px ui-monospace,SFMono-Regular,monospace}input[type=range]{width:100%;height:25px;margin:8px 0 0;accent-color:var(--a);cursor:pointer}input:disabled{cursor:default;opacity:.3}.range-ends{display:flex;justify-content:space-between;color:var(--muted);font:10px ui-monospace,SFMono-Regular,monospace}.control.locked label{color:var(--muted)}.control.b input{accent-color:var(--b)}.control.b output{color:var(--b)}.transport{display:flex;gap:8px;align-items:center}.transport button{white-space:nowrap;font-size:12px;min-height:41px}#play{background:var(--a);border-color:var(--a);color:#1a2515;min-width:100px}#play:hover:enabled{background:#e2f8ab}#presets{display:flex;gap:8px;align-items:center;padding:0 26px 20px;flex-wrap:wrap}#presets .micro{margin-right:7px;color:var(--muted)}#presets button{font-size:12px;padding:6px 12px}#presets button[aria-pressed=true]{border-color:var(--a);color:var(--a);background:#273225}.navigation{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding:17px 26px;gap:12px}.progress{display:flex;gap:6px;align-items:center}.progress span:not(.step-count){height:3px;width:21px;border-radius:2px;background:#3b4647}.progress span.done{background:var(--a)}.step-count{white-space:nowrap;font:11px ui-monospace,SFMono-Regular,monospace;color:var(--muted);margin-left:12px}#next{background:var(--text);color:var(--bg);border-color:var(--text);min-width:127px;font-size:12px}#back{font-size:12px}.notes{display:grid;grid-template-columns:1.2fr 1fr;gap:60px;padding:23px 2px 0;color:var(--muted);font-size:12px}.notes p{margin:6px 0 0}.notes .micro{font-size:10px}.notes summary{cursor:pointer;color:var(--text);font-size:12px}.notes details p{max-width:500px}.footer{display:flex;justify-content:space-between;color:#758783;padding-top:24px;font:10px ui-monospace,SFMono-Regular,monospace;letter-spacing:.6px}[hidden]{display:none!important}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+h1 em{font-style:normal;font-weight:650;color:var(--a)}.sliders.single{grid-template-columns:1fr}#animate{align-self:flex-start;margin-top:12px;font-size:12px}
+#physical-a,#physical-b,#guides,#guide-b,#assembly{transition:opacity .45s ease}
+@media(max-width:850px){.page{padding:22px}.lesson{grid-template-columns:1fr 260px}.intro p{max-width:290px}.controls{gap:18px;flex-wrap:wrap}.sliders{min-width:100%}.transport{margin-left:auto}.notes{gap:30px}}
+@media(max-width:580px){.page{padding:16px 12px}.masthead{padding-bottom:16px}.masthead .micro{font-size:9px;letter-spacing:1px}.brand{font-size:13px}.intro{display:block;padding:25px 5px}.intro p{margin-top:14px;max-width:none}h1{letter-spacing:-1.2px}.lesson{display:block;min-height:0}.lesson-copy{padding:20px}h2{font-size:23px}.try{border:0;border-top:1px solid var(--line);margin:0;padding:13px 20px}.try .micro{margin-bottom:4px}.scene-meta{left:15px;right:15px;top:13px}.scene-meta span{font-size:8px;letter-spacing:.6px}#mechanism{min-height:0;aspect-ratio:960/660}.legend{gap:15px;font-size:9px;padding-top:0}.observation{display:block;padding:15px 20px}.equation{display:block;margin-top:8px;font-size:12px}.controls{padding:20px;gap:17px}.sliders{grid-template-columns:1fr;gap:18px}.transport{width:100%;margin:0}.transport button{flex:1}.navigation{padding:16px 14px}.progress span:not(.step-count){width:9px}.step-count{margin-left:7px;font-size:10px}#back{padding:8px 10px}#next{min-width:90px;padding:9px 12px}.notes{grid-template-columns:1fr;gap:20px;padding:22px 7px 0}.footer{font-size:8px;padding:24px 7px 4px}.scene-meta .live{max-width:135px;text-align:right}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<main class="page">
+  <header class="masthead"><div class="brand"><svg viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M3 5h22v18H3zM3 23 25 5M3 5l22 18" stroke="#d3ed8b" stroke-width="1.3"/><circle cx="14" cy="14" r="3" fill="#101618" stroke="#d3ed8b"/></svg>Motion studies</div><span class="micro">No. 01 / An interactive laboratory</span></header>
+  <div class="intro"><h1><em>Core</em> principles<br>of <em>XY</em> motion.</h1><p>One belt. One small change at a time.<br>Discover the mechanics behind CoreXY.</p></div>
+  <section class="lab" aria-label="Interactive CoreXY laboratory">
+    <div class="lesson" aria-live="polite" aria-atomic="true"><div class="lesson-copy"><div class="eyebrow" id="chapter"></div><h2 id="heading"></h2><p id="description"></p></div><aside class="try"><span class="micro">↗ Try this</span><p id="prompt"></p><button id="animate" type="button" hidden>↻ Animate rearrangement</button></aside></div>
+    <div class="scene-wrap">
+      <div class="scene-meta"><span>IDEAL BELT · FIXED FRAME</span><span class="live" id="status"></span></div>
+      <svg id="mechanism" viewBox="0 0 960 600" role="img" aria-labelledby="svg-title svg-desc">
+        <title id="svg-title">Interactive belt mechanism</title><desc id="svg-desc">A motor drives a continuous belt. Use the sliders below as an alternative to dragging the carriage.</desc>
+        <defs><pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="12" cy="12" r=".8" fill="#354145"/></pattern><clipPath id="work-area"><rect x="160" y="180" width="640" height="300" rx="4"/></clipPath></defs>
+        <rect x="30" y="40" width="900" height="525" fill="url(#dots)" opacity=".65"/>
+        <path d="M56 70v-14h14M890 56h14v14M56 535v14h14M890 549h14v-14" fill="none" stroke="#53625e"/>
+        <g id="axes" opacity=".7"><path d="M865 494h38l-5-4m5 4-5 4M865 494v-38l-4 5m4-5 4 5" fill="none" stroke="#8b9b96"/><text x="903" y="514" class="svg-small">x</text><text x="860" y="448" class="svg-small">y</text></g>
+        <g id="assembly"><path id="assembly-line" stroke="#798b87" stroke-width="1" stroke-dasharray="4 7" opacity=".45"/><path d="M840 203v241" stroke="#50605d" stroke-width="1"/><g id="y-handle" class="draggable"><rect x="823" y="-31" width="34" height="62" rx="12" fill="#29382e" stroke="#a4ba81"/><path d="M834-12l6-6 6 6M840-18v36M834 12l6 6 6-6" fill="none" stroke="#d3ed8b" stroke-width="1.5"/><rect x="812" y="-38" width="55" height="76" fill="transparent"/></g><text x="876" y="328" class="svg-small">Y</text></g>
+        <g id="physical-a"><g id="pulleys-a"></g><path id="belt-a" class="belt"/><g id="markers-a"></g></g>
+        <g id="physical-b"><g id="pulleys-b"></g><path id="belt-b" class="belt belt-b"/><g id="markers-b"></g></g>
+        <g id="guides" clip-path="url(#work-area)"><path id="ghost" class="ghost-guide"/><path id="guide-a" class="guide"/><path id="guide-b" class="guide guide-b"/></g>
+        <g id="span-labels"><text id="vertical-span" class="svg-label" fill="#d3ed8b">vertical span</text><text id="horizontal-span" class="svg-label" fill="#d3ed8b">horizontal span</text></g>
+        <text id="guide-label" x="370" y="218" text-anchor="end" class="svg-label" style="fill:var(--a)"></text>
+        <text id="guide-label-b" x="590" y="218" class="svg-label" style="fill:var(--b)"></text>
+        <g id="carriage" class="draggable"><rect x="-58" y="-4" width="116" height="50" rx="9" fill="#655881" stroke="#c7b7eb" stroke-width="1.5"/><path d="M-43 26h86" stroke="#a590cc" opacity=".35"/><rect x="-49" y="-12" width="16" height="24" rx="3" fill="#b4a0d9" stroke="#e0d4f4"/><rect x="33" y="-12" width="16" height="24" rx="3" fill="#b4a0d9" stroke="#e0d4f4"/><path d="M-45 0h8m-4-4v8M37 0h8m-4-4v8" stroke="#57466f"/><text x="0" y="22" text-anchor="middle" style="fill:#f2eaff;font:12px system-ui">carriage</text><circle cx="0" cy="0" r="3" fill="#f0e8fc"/></g>
+        <text id="motor-label-a" x="200" y="549" text-anchor="middle" class="svg-title">Motor A</text><text id="motor-label-b" x="760" y="549" text-anchor="middle" class="svg-title" style="fill:var(--b)">Motor B</text>
+        <text id="fixed-label" x="480" y="112" text-anchor="middle" class="svg-label">All pulley centers fixed to ground</text>
+        <text id="coordinates" x="480" y="580" text-anchor="middle" class="svg-small"></text>
+      </svg>
+      <div class="legend"><span><i class="swatch"></i><span id="belt-legend">Continuous belt</span></span><span id="legend-b" hidden><i class="swatch b"></i>Belt B</span><span><i class="swatch c"></i>Clamped carriage</span></div>
+    </div>
+    <div class="observation"><p id="observation"></p><span class="equation" id="equation"></span></div>
+    <div class="controls">
+      <div class="sliders"><div class="control" id="control-a"><label for="motor-a"><span id="label-a">Motor A · belt travel</span><output id="output-a" for="motor-a"></output></label><input id="motor-a" type="range" min="-120" max="120" value="0" step="1"><div class="range-ends"><span>−120</span><span id="hint-a">displacement units</span><span>+120</span></div></div>
+      <div class="control" id="control-secondary" hidden><label for="secondary"><span id="label-secondary"></span><output id="output-secondary" for="secondary"></output></label><input id="secondary" type="range" min="-120" max="120" value="0" step="1"><div class="range-ends"><span id="min-secondary">−120</span><span id="hint-secondary"></span><span id="max-secondary">+120</span></div></div></div>
+      <div class="transport"><button id="play" type="button">▶ Play</button><button id="reset" type="button" title="Center the mechanism in this step">↺ Reset</button></div>
+    </div>
+    <div id="presets" hidden><span class="micro">Explore</span><button data-mode="free" aria-pressed="true">Independent</button><button data-mode="a" aria-pressed="false">Motor A only</button><button data-mode="b" aria-pressed="false">Motor B only</button><button data-mode="x" aria-pressed="false">Pure X</button><button data-mode="y" aria-pressed="false">Pure Y</button><button id="reveal" type="button">Reveal the equations</button></div>
+    <nav class="navigation" aria-label="Lesson navigation"><button id="back" type="button">← Back</button><div class="progress" id="progress"><span class="step-count" id="step-count"></span></div><button id="next" type="button">Next step →</button></nav>
+  </section>
+  <div class="notes"><div><span class="micro">A deliberately ideal world</span><p>Assume a perfectly inextensible, taut belt and ideal pulleys — a bit of a spherical-cow model. Real carriages need linear guides. Here, only the explicitly enabled motions are allowed, so we can isolate the belt-length constraints.</p></div><details id="model-notes"><summary>About the model &amp; real machines</summary><p>The two clamps travel with the belt; they do not slide along it. With the motor locked, the material length from the motor to a clamp is fixed. Pulley wraps contribute constant lengths.</p><p>Rearranging is a setup operation: two routing idlers are added and the belt is rethreaded. Its settled loop length is the same before and after. Motion controls pause during this transition.</p><p>Coordinates use x rightward and y upward. A and B are signed belt displacements relative to center, not absolute motor angles. The mirrored belt is shown offset by 8 drawing units to distinguish the two belt planes.</p><p>Real CoreXY machines use guides and a rigid gantry. Belts keep moving mass low and let motors stay on the frame, but stretch, tooth deformation, tension, and bearing compliance affect stiffness. The diagonal-coordinate idea is a kinematic architecture, not a property unique to belts.</p></details></div>
+  <footer class="footer"><span>BUILT TO BE EXPLORED, ONE CONSTRAINT AT A TIME.</span><span>SVG / KINEMATICS / 01</span></footer>
+</main>
+<script>
+'use strict';
+(() => {
+const $ = id => document.getElementById(id);
+const NS = 'http://www.w3.org/2000/svg';
+const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+const R = 20, K = .5522847498307936, OX = 480, OY = 320;
+// Exact quarter-circle wrap compensation: both settled routings use the same loop length.
+const TOP = 50 + 100 + R * (Math.PI / 2 - 2);
+const state = {stage:0,a:0,b:0,y:0,x:0,playing:false,mode:'free',reveal:false,morph:0,transition:null};
+const stages = [
+ ['A familiar beginning','An ordinary belt drive.','One motor, three fixed idlers, and a carriage clamped to a continuous belt. Nothing clever yet.','Turn the motor. Watch the painted belt markers and the carriage move together.','The motor advances the belt. The carriage follows the horizontal run.','1 free input · horizontal motion'],
+ ['Change the setup','A new route. The same motion.','Fixed idlers simply redirect the belt; there is nothing special about three. Add two routing idlers and rearrange the return path, keeping the motor on the frame and every idler fixed. The path looks different, but motor rotation still moves the carriage only horizontally.','Animate the rearrangement, then turn Motor A or press Play. The carriage stays at the same height.','The small brackets mark fixed pulley centers. Rerouting prepares the next experiment; it does not unlock vertical motion.','All idlers still fixed'],
+ ['One new freedom','Unlock the idler pair.','The two idlers beside the carriage can now move up and down together. Hold the motor fixed.','Drag the green Y handle upward. Which way does the carriage have to move?','As the left vertical span grows, the horizontal span to the clamp must shorten by the same amount.','Motor locked · pair free in Y'],
+ ['The hidden geometry','You made a virtual guide.','With the motor locked, the belt fixes the sum of two spans. The carriage is free along a 45° diagonal.','Drag the carriage in any direction. Its motion is projected onto the allowed diagonal.','The motor-to-clamp length is fixed: Δhorizontal + Δvertical = 0. That is the source of the diagonal.','Motor locked · 1 remaining freedom'],
+ ['Move the constraint','The motor moves the guide.','Unlock Motor A. Turning it changes the available belt length up to the clamp, translating the entire allowed diagonal.','Move Motor A, then move Y. One shifts the guide; the other explores positions on it.','Motor input sets the offset A. The carriage remains free along that line; adjust Y separately to explore that freedom.','Motor free · guide can translate'],
+ ['Add the mirror image','Two guides. One intersection.','A mirrored belt and a second fixed motor impose the complementary constraint. Together they determine one carriage position.','Move A and B independently. Each moves its own diagonal; the carriage follows their intersection.','The first belt sets x + y = A. The mirrored belt sets x − y = B. Neither leaves freedom once both motors are fixed.','2 motor inputs · unique intersection'],
+ ['Put it together','Discover Cartesian motion.','You now have the whole idea. Explore how two diagonal coordinates combine into familiar horizontal and vertical motion.','Select Pure X or Pure Y, then move either slider. Watch how the other follows before revealing the equations.','Watch the carriage and compare the signs of A and B. What combination keeps one Cartesian coordinate unchanged?','Two diagonal coordinates → CoreXY']
+];
+const clamp = (v,lo,hi) => Math.max(lo,Math.min(hi,v));
+const lerp = (a,b,t) => a+(b-a)*t;
+const signed = n => Math.abs(n)<.05 ? '0' : (n>0?'+':'−')+Math.abs(n).toFixed(0);
+function make(tag,attrs,parent){const el=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs))el.setAttribute(k,v);parent.appendChild(el);return el;}
+const dotsA=[],dotsB=[],pulleysA=[],pulleysB=[];
+for(const [group,list,color] of [[$('markers-a'),dotsA,'#d3ed8b'],[$('markers-b'),dotsB,'#7dcad9']])for(let i=0;i<22;i++)list.push(make('circle',{r:3.2,fill:'#142019',stroke:color,'stroke-width':1.8},group));
+for(const [parent,list,color] of [[$('pulleys-a'),pulleysA,'#d3ed8b'],[$('pulleys-b'),pulleysB,'#7dcad9']])for(let i=0;i<6;i++){
+ const g=make('g',{},parent); const ground=make('path',{d:'M-11 27h22m-20 0-4 5m11-5-4 5m11-5-4 5m11-5-4 5',class:'anchor'},g);
+ if(i===0)make('rect',{x:-28,y:-28,width:56,height:56,rx:9,fill:'#192521',stroke:color,'stroke-opacity':.4},g);
+ make('circle',{r:R-2,class:i===0?'motor-body':'pulley-body',...(i===0?{style:'stroke:'+color}: {})},g);
+ const spoke=make('path',{d:'M5 0h11M-5 0h-9',class:'spoke',...(i===0?{style:'stroke:'+color}: {})},g);
+ make('circle',{r:4,class:'bearing'},g);list.push({g,ground,spoke});
+}
+for(let i=0;i<stages.length;i++){const el=document.createElement('span');el.setAttribute('aria-hidden','true');$('progress').insertBefore(el,$('step-count'));}
+// Each row is a path command with matching control points. New routing corners
+// begin collapsed, so the single persistent path can morph without a hard cut.
+function route(m,g,mirror=false){
+ const k=R*K;
+ const start=[['M',200,510],['C',200,510,200,510,200,510],['L',200,510],['C',200,510,200,510,200,510],['L',760,510],['C',760+k,510,780,490+k,780,490],['L',780,70],['C',780,70-k,760+k,50,760,50],['L',200,50],['C',200-k,50,180,70-k,180,70],['L',180,490],['C',180,490+k,200-k,510,200,510],['Z']];
+ const end=[['M',200,510],['C',200+k,510,220,490+k,220,490],['L',220,g+20],['C',220,g+20-k,240-k,g,240,g],['L',760,g],['C',760+k,g,780,g-20+k,780,g-20],['L',780,TOP+20],['C',780,TOP+20-k,760+k,TOP,760,TOP],['L',100,TOP],['C',100-k,TOP,80,TOP+20-k,80,TOP+20],['L',80,490],['C',80,490+k,100-k,510,100,510],['Z']];
+ return start.map((row,j)=>row.map((n,i)=>{if(!i)return n;let v=lerp(n,end[j][i],m);if(mirror)v=i%2?960-v:v+8;return v;}).join(' ')).join(' ');
+}
+function derive(){
+ if(state.stage<2){state.y=0;state.x=state.a;}
+ else if(state.stage<5){state.y=clamp(state.y,Math.max(-120,state.a-180),Math.min(120,state.a+180));state.x=state.a-state.y;}
+ else {state.x=(state.a+state.b)/2;state.y=(state.a-state.b)/2;}
+}
+function drawPulleySet(list,m,g,travel,mirror){
+ const centers=[[200,490],[lerp(200,240,m),lerp(510,g+20,m)],[760,lerp(490,g-20,m)],[760,lerp(70,TOP+20,m)],[lerp(200,100,m),lerp(70,TOP+20,m)],[lerp(200,100,m),490]];
+ list.forEach((p,i)=>{
+   const [x,y]=centers[i];p.g.setAttribute('transform',`translate(${mirror?960-x:x} ${y+(mirror?8:0)})`);p.g.style.opacity=(i===1||i===5)?m:1;
+   p.ground.style.opacity=(state.stage>=2&&(i===1||i===2))?0:1;
+   // A moving center changes arc-length location by y. Its surface speed
+   // relative to its center is belt travel minus that location change.
+   const relative=travel-((i===1||i===2)?state.y*m:0);
+   const angle=relative/R*180/Math.PI*(i===1?1:-1)*(mirror?-1:1);
+   p.spoke.setAttribute('transform',`rotate(${angle})`);
+ });
+}
+function markers(path,list,phase){const length=path.getTotalLength();list.forEach((dot,i)=>{const s=((i*length/list.length+phase)%length+length)%length;const p=path.getPointAtLength(s);dot.setAttribute('cx',p.x);dot.setAttribute('cy',p.y);});return length;}
+// In SVG y points downward: x+y=A therefore screenY=OY+(screenX-OX)-A.
+function guideA(a){return `M160 ${OY+160-OX-a}L800 ${OY+800-OX-a}`;}
+function guideB(b){return `M160 ${OY-160+OX+b}L800 ${OY-800+OX+b}`;}
+function render(){
+ derive();const m=state.morph,g=OY-state.y,cy=lerp(510,g,m),cx=OX+state.x,two=state.stage>=5;
+ $('belt-a').setAttribute('d',route(m,g));$('belt-b').setAttribute('d',route(1,g,true));
+ drawPulleySet(pulleysA,m,g,state.a,false);drawPulleySet(pulleysB,1,g,-state.b,true);
+ // The highlighted material coordinate reaches the neutral clamp at each
+ // settled routing. At m=1 its path coordinate is S0+x+y = S0+A.
+ const phase=lerp(OX-200,Math.PI*R+490-20+OX-240-OY,m)+state.a;
+ const length=markers($('belt-a'),dotsA,phase);
+ if(two)markers($('belt-b'),dotsB,Math.PI*R+490-20+OX-240-OY-state.b);
+ $('physical-a').style.opacity=state.stage>=4?.48:1;$('physical-b').style.opacity=two?.48:0;
+ $('carriage').setAttribute('transform',`translate(${cx} ${cy})`);
+ $('assembly').style.opacity=state.stage>=2&&state.stage<5?1:0;$('assembly').style.pointerEvents=state.stage>=2&&state.stage<5?'auto':'none';$('y-handle').setAttribute('transform',`translate(0 ${g})`);
+ $('assembly-line').setAttribute('d',`M240 ${g+20}H815M760 ${g-20}H815M815 ${g-20}V${g+20}`);
+ $('guides').style.opacity=state.stage>=3?1:0;$('guide-a').setAttribute('d',guideA(state.a));$('guide-b').setAttribute('d',guideB(state.b));$('guide-b').style.opacity=two?1:0;$('ghost').setAttribute('d',guideA(0));$('ghost').style.display=state.stage===4?'':'none';
+ $('guide-label').textContent=state.stage>=3?`x + y = ${state.stage>=4?'A':'C'} = ${signed(state.a)}`:'';
+ $('guide-label-b').textContent=two?`x − y = B = ${signed(state.b)}`:'';
+ $('guide-label').setAttribute('x',370+state.a);$('guide-label-b').setAttribute('x',590+state.b);
+ $('span-labels').style.display=state.stage===2||state.stage===3?'':'none';$('vertical-span').setAttribute('transform',`translate(204 ${(g+510)/2}) rotate(-90)`);$('horizontal-span').setAttribute('x',260);$('horizontal-span').setAttribute('y',g-17);
+ $('fixed-label').textContent=state.stage<2?'All pulley centers fixed to ground':state.stage<5?'Selected idlers move together · motor stays on the frame':'Two belt planes · both motors stay on the frame';
+ $('fixed-label').setAttribute('y',m>0?91:112);
+ $('motor-label-b').style.display=two?'':'none';$('coordinates').textContent=`x ${signed(state.x)}   /   y ${signed(state.y)}${state.stage>=2?'   ·   loop length constant':''}`;
+ $('motor-a').value=state.a;$('output-a').textContent=signed(state.a);$('secondary').value=two?state.b:state.y;$('output-secondary').textContent=state.stage<2?'locked':signed(two?state.b:state.y);
+ if(state.stage>=2&&!two){$('secondary').min=Math.max(-120,state.a-180);$('secondary').max=Math.min(120,state.a+180);$('min-secondary').textContent=signed(+$('secondary').min);$('max-secondary').textContent=signed(+$('secondary').max);}
+ let eq='motor travel = carriage travel';
+ if(state.stage===2)eq=`Δvertical ${signed(state.y)} + Δhorizontal ${signed(state.x-state.a)} = 0`;
+ if(state.stage===3)eq=`x + y = ${signed(state.a)}`;
+ if(state.stage===4)eq=`x + y = A = ${signed(state.a)}`;
+ if(two)eq=state.stage===6&&state.reveal?'x = (A + B) / 2   ·   y = (A − B) / 2':'x + y = A   ·   x − y = B';
+ $('equation').textContent=eq;
+ if(state.stage===6)$('observation').textContent=state.reveal?'Equal motor displacements make horizontal motion. Opposite displacements make vertical motion.':stages[6][4];
+ // Read-only diagnostics used by the browser checks, also useful for inspection.
+ $('mechanism').dataset.loopLength=length.toFixed(3);$('mechanism').dataset.x=state.x;$('mechanism').dataset.y=state.y;
+}
+function stop(){state.playing=false;$('play').textContent='▶ Play';$('play').setAttribute('aria-pressed','false');}
+function configure(){
+ const s=state.stage,entry=stages[s],two=s>=5,locked=s===2||s===3;
+ $('chapter').textContent=`Experiment ${String(s+1).padStart(2,'0')} / ${entry[0]}`;
+ $('heading').textContent=entry[1];$('description').textContent=entry[2];$('prompt').textContent=entry[3];$('observation').textContent=entry[4];$('status').textContent=entry[5];$('svg-desc').textContent=entry[2]+' '+entry[3]+' All dragging also has a range control below.';
+ $('motor-a').disabled=locked||(s===6&&state.mode==='b')||!!state.transition;$('control-a').classList.toggle('locked',locked);$('label-a').textContent=locked?'Motor A · locked':'Motor A · belt travel';$('hint-a').textContent=locked?'fixed material at motor':'displacement units';
+ $('control-secondary').hidden=s<2;document.querySelector('.sliders').classList.toggle('single',s<2);
+ $('animate').hidden=s!==1;$('animate').disabled=reduced.matches||!!state.transition;$('animate').title=reduced.matches?'Animation disabled by your reduced-motion preference. The rearranged layout is shown.':'Replay the change from the rectangular belt to this routing';
+ $('secondary').disabled=s<2||(s===6&&state.mode==='a')||!!state.transition;$('secondary').min=-120;$('secondary').max=120;$('min-secondary').textContent='−120';$('max-secondary').textContent='+120';
+ $('control-secondary').classList.toggle('b',two);$('control-secondary').classList.toggle('locked',s<2);$('label-secondary').textContent=two?'Motor B · belt travel':'Idler pair · Y position';$('hint-secondary').textContent=two?'displacement units':s<2?'fixed to ground':'↑ positive is upward';
+ if(s===6){const hint=state.mode==='x'?'linked · same direction':state.mode==='y'?'linked · opposite directions':'displacement units';$('hint-a').textContent=state.mode==='b'?'held fixed':hint;$('hint-secondary').textContent=state.mode==='a'?'held fixed':hint;}
+ $('presets').hidden=s!==6;$('legend-b').hidden=!two;$('belt-legend').textContent=two?'Belt A':'Continuous belt';$('back').disabled=s===0;$('next').textContent=s===6?'Start again ↺':'Next step →';
+ $('step-count').textContent=`${s+1} / ${stages.length}`;[...$('progress').children].slice(0,stages.length).forEach((e,i)=>e.classList.toggle('done',i<=s));
+ $('play').disabled=reduced.matches||!!state.transition;$('play').title=reduced.matches?'Animation disabled by your reduced-motion preference. Use the sliders.':locked?'Animate the free idler pair':'Animate the selected motor input';
+ $('reveal').textContent=state.reveal?'Hide the equations':'Reveal the equations';render();
+}
+function go(s){
+ stop();const from=state.morph;state.stage=s;state.a=state.b=state.x=state.y=0;
+ const to=s>=1?1:0;
+ state.transition=from!==to&&!reduced.matches?{from,to,start:performance.now(),duration:1100}:null;
+ if(!state.transition)state.morph=to;
+ configure();
+}
+$('next').addEventListener('click',()=>go((state.stage+1)%stages.length));$('back').addEventListener('click',()=>go(Math.max(0,state.stage-1)));
+$('animate').addEventListener('click',()=>{
+ if(state.stage!==1||reduced.matches||state.transition)return;
+ stop();state.a=state.b=state.x=state.y=0;state.morph=0;
+ state.transition={from:0,to:1,start:performance.now(),duration:1100};configure();
+});
+$('reset').addEventListener('click',()=>{stop();state.a=state.b=state.y=0;render();});
+// Scale the requested pair displacement together at the first motor limit.
+// Independent clamping would break the locked sum/difference at the boundary.
+function movePair(da,db,base=state){
+ let fraction=1;
+ for(const [value,delta] of [[base.a,da],[base.b,db]]){
+   if(delta>0)fraction=Math.min(fraction,(120-value)/delta);
+   if(delta<0)fraction=Math.min(fraction,(-120-value)/delta);
+ }
+ state.a=base.a+da*fraction;state.b=base.b+db*fraction;
+}
+function moveMotor(motor,value){
+ const mode=state.stage===6?state.mode:'free';
+ if((mode==='a'&&motor==='b')||(mode==='b'&&motor==='a'))return;
+ const delta=value-state[motor];
+ if(mode==='x')movePair(delta,delta);
+ else if(mode==='y')movePair(motor==='a'?delta:-delta,motor==='a'?-delta:delta);
+ else state[motor]=clamp(value,-120,120);
+}
+$('motor-a').addEventListener('input',e=>{stop();moveMotor('a',+e.target.value);render();});
+$('secondary').addEventListener('input',e=>{stop();if(state.stage>=5)moveMotor('b',+e.target.value);else state.y=+e.target.value;render();});
+let playbackStart=0,playbackBase=null;
+function play(){if(reduced.matches||state.transition)return;if(state.playing){stop();return;}state.playing=true;playbackStart=performance.now();playbackBase={a:state.a,b:state.b,y:state.y};$('play').textContent='Ⅱ Pause';$('play').setAttribute('aria-pressed','true');}
+$('play').addEventListener('click',play);
+document.querySelectorAll('[data-mode]').forEach(button=>button.addEventListener('click',()=>{stop();state.mode=button.dataset.mode;document.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',b===button));configure();}));
+$('reveal').addEventListener('click',()=>{state.reveal=!state.reveal;configure();});
+let drag=null;
+function point(e){return new DOMPoint(e.clientX,e.clientY).matrixTransform($('mechanism').getScreenCTM().inverse());}
+for(const [id,kind] of [['carriage','carriage'],['y-handle','y']]){
+ const el=$(id);el.addEventListener('pointerdown',e=>{if(state.transition)return;stop();const p=point(e);drag={kind,id:e.pointerId,px:p.x,py:p.y,a:state.a,b:state.b,x:state.x,y:state.y};el.setPointerCapture(e.pointerId);e.preventDefault();});
+ el.addEventListener('pointermove',e=>{if(!drag||drag.id!==e.pointerId)return;const p=point(e),dx=p.x-drag.px,dy=drag.py-p.y,s=state.stage;
+   if(drag.kind==='y'){state.y=drag.y+dy;}
+   else if(s<2)state.a=clamp(drag.a+dx,-120,120);
+   else if(s<5)state.y=drag.y+(dy-dx)/2; // Orthogonal projection onto x+y=A.
+   else if(s===6&&state.mode!=='free'){const mode=state.mode;const da=mode==='x'?dx:mode==='y'?dy:mode==='a'?dx+dy:0;const db=mode==='x'?dx:mode==='y'?-dy:mode==='b'?dx-dy:0;movePair(da,db,drag);}
+   else {state.a=clamp(drag.a+dx+dy,-120,120);state.b=clamp(drag.b+dx-dy,-120,120);}
+   render();e.preventDefault();
+ });
+ const end=()=>{drag=null;};el.addEventListener('pointerup',end);el.addEventListener('pointercancel',end);el.addEventListener('lostpointercapture',end);
+}
+reduced.addEventListener('change',()=>{stop();if(state.transition){state.morph=state.transition.to;state.transition=null;}configure();});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
+function frame(now){
+ if(state.transition){const t=clamp((now-state.transition.start)/state.transition.duration,0,1);const eased=t*t*(3-2*t);state.morph=lerp(state.transition.from,state.transition.to,eased);render();if(t===1){state.transition=null;configure();}}
+ else if(state.playing){
+   const t=(now-playbackStart)/1000,w=Math.sin(t*.85),blend=Math.min(1,t/1.2),v=110*w;
+   if(state.stage===2||state.stage===3)state.y=lerp(playbackBase.y,v,blend);
+   else if(state.stage>=5){const mode=state.stage===5?'a':state.mode;const delta=v*blend;movePair(mode==='b'?0:delta,mode==='x'||mode==='b'?delta:mode==='y'?-delta:0,playbackBase);}
+   else state.a=lerp(playbackBase.a,v,blend);
+   render();
+ }
+ requestAnimationFrame(frame);
+}
+configure();requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

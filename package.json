@@ -1,0 +1,19 @@
+{
+  "name": "corexy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "An interactive SVG laboratory deriving CoreXY motion from belt-length constraints",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/srinathava/corexy.git"
+  },
+  "scripts": {
+    "test": "node tests/browser.cjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "playwright": "1.63.0"
+  }
+}
